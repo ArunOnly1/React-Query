@@ -17,10 +17,26 @@ const DependentQueryPage = ({ email }) => {
   })
   const channelId = data?.channelId
 
-  useQuery(['channel', channelId], fetchChannel, {
-    enabled: !!channelId,
-  })
-  return <div>DependentQueryPage</div>
+  const { data: channelData, isLoading } = useQuery(
+    ['channel', channelId],
+    fetchChannel,
+    {
+      enabled: !!channelId,
+      select: (data) => data.data,
+    }
+  )
+
+  if (isLoading) {
+    return <h2>Loading ...</h2>
+  }
+
+  return (
+    <div>
+      {channelData?.courses.map((course, index) => {
+        return <p key={index}>{course}</p>
+      })}
+    </div>
+  )
 }
 
 export default DependentQueryPage
