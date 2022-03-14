@@ -12,8 +12,47 @@
     },
     {
       "id": 3,
-      "name": "Wonder Woman",
+      "name": "Wonder Woman11",
       "alterEgo": "Princess Diana"
+    }
+  ],
+  "friends": [
+    {
+      "id": 1,
+      "name": "Joey Tribbiani"
+    },
+    {
+      "id": 2,
+      "name": "Chandler Bing"
+    },
+    {
+      "id": 3,
+      "name": "Rachel Green"
+    },
+    {
+      "id": 4,
+      "name": "Ross Taylor"
+    },
+    {
+      "id": 5,
+      "name": "Phoebe Buffay"
+    },
+    {
+      "id": 6,
+      "name": "Monika Taylor"
+    }
+  ],
+
+  "users": [
+    {
+      "id": "erarun1nly1@gmail.com",
+      "channelId": "codevolution"
+    }
+  ],
+  "channels": [
+    {
+      "id": "codevolution",
+      "courses": ["react", "vue", "angular"]
     }
   ]
 }

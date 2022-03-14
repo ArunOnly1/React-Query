@@ -1,31 +1,18 @@
-import axios from 'axios'
-import React, { useState } from 'react'
-import { useQuery } from 'react-query'
-
-const fetchSuperHeroes = () => {
-  return axios.get('http://localhost:4000/superheroes')
-}
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSuperHeroesData } from '../hooks/useSuperHeroesData'
 
 const RQSuperHeroes = () => {
-  const { isLoading, data, isError, error, isFetching, refetch } = useQuery(
-    'super-heroes',
-    fetchSuperHeroes,
-    {
-      // default cacheTime is 5 minutes and that is okay
-      // cacheTime: 5000,
-      // default staleTime is 0
-      // staleTime: 30000,
-      // refetchOnMount provides same behaviour as traditional way
-      // refetchOnMount: true,
-      // refetchOnWindowFocus: 'always',
-      // by default refetchInterval is false
-      // refetchInterval: 2000,
-      // refetchIntervalInBackground fetches data in background even when the window is not in focus
-      // refetchIntervalInBackground: true,
-      // enabled decides whether to run query when component mounts or not, by default:true
-      enabled: false,
-    }
-  )
+  const onSuccess = (data) => {
+    console.log('Perform side effect after fetching data')
+  }
+
+  const onError = () => {
+    console.log('Perform side effect after encountering error')
+  }
+
+  const { isLoading, data, isError, error, isFetching, refetch } =
+    useSuperHeroesData(onSuccess, onError)
 
   console.log({ isLoading, isFetching })
 
@@ -38,14 +25,15 @@ const RQSuperHeroes = () => {
     return <h2>{error.message}</h2>
   }
 
-  const { data: heroesData } = data ? data : []
-
   return (
     <>
       <h2>RQSuperHeroes</h2>
-      <button onClick={refetch}>Click me</button>
-      {heroesData?.map((hero) => (
-        <p key={hero.id}>{hero.name}</p>
+      {/* <button onClick={refetch}>Click me</button> */}
+
+      {data?.map((hero) => (
+        <div key={hero.id}>
+          <Link to={`/rq-super-heroes/${hero.id}`}>{hero.name}</Link>
+        </div>
       ))}
     </>
   )
